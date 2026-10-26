@@ -8,9 +8,9 @@ import { AudioEngine } from "@/engine/AudioEngine";
 import { SpaceCanvas } from "@/components/3d/SpaceCanvas";
 import { HudFrame } from "@/components/hud/HudFrame";
 import { HeroSingularity } from "@/components/sections/HeroSingularity";
-import { WorksTesseract } from "@/components/sections/WorksTesseract";
+import { WorksStage } from "@/components/sections/WorksStage";
 import { AboutOrigin } from "@/components/sections/AboutOrigin";
-import { ExperienceTrails } from "@/components/sections/ExperienceTrails";
+import { TrailsStage } from "@/components/sections/TrailsStage";
 import { WritingVoyager } from "@/components/sections/WritingVoyager";
 import { ContactGalaxy } from "@/components/sections/ContactGalaxy";
 import { ProjectModal } from "@/components/ui/ProjectModal";
@@ -26,7 +26,7 @@ export default function Home() {
   const audioRef = useRef<AudioEngine | null>(null);
   const lenisRef = useRef<Lenis | null>(null);
 
-  // Initialize AudioEngine on first user gesture
+  // Initialize AudioEngine on client
   useEffect(() => {
     audioRef.current = new AudioEngine();
   }, []);
@@ -61,9 +61,7 @@ export default function Home() {
       }
 
       // Check active section
-      const scrollY = window.scrollY;
       const height = window.innerHeight;
-
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);
         if (el) {
@@ -151,16 +149,26 @@ export default function Home() {
         city={portfolioConfig.personal.city}
       />
 
-      {/* Scrollable Content Sections */}
+      {/* Scrollable Content Sections with Reconstructed Pinned Stages */}
       <div className="relative z-10">
         <HeroSingularity personal={portfolioConfig.personal} />
-        <WorksTesseract
+
+        <WorksStage
           projects={portfolioConfig.projects}
           onSelectRoom={handleSelectRoom}
+          onRoomChange={(roomIdx) => {
+            if (engineRef.current) {
+              engineRef.current.setScrollProgress(scrollProgress, roomIdx);
+            }
+          }}
         />
+
         <AboutOrigin personal={portfolioConfig.personal} />
-        <ExperienceTrails experiences={portfolioConfig.experiences} />
+
+        <TrailsStage experiences={portfolioConfig.experiences} />
+
         <WritingVoyager transmissions={portfolioConfig.transmissions} />
+
         <ContactGalaxy
           personal={portfolioConfig.personal}
           onReturnToOrigin={handleReturnToOrigin}

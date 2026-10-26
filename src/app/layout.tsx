@@ -20,9 +20,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark motion-ok" suppressHydrationWarning>
       <head>
         <link rel="stylesheet" href="/original.css" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('motion-ok')}}catch(e){}`,
+          }}
+        />
       </head>
       <body className="bg-[#030409] text-[#e6ebf5] antialiased overflow-x-clip">
         {children}
