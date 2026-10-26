@@ -6,3 +6,12 @@ node_modules/
 bun.lock
 *.tsbuildinfo
 scratch/
+shot-*.png
+test-*.png
+test-*.js
+verify-*.js
+apply-*.js
+catch-*.js
+find-*.js
+patch-*.js
+diagnose-*.js
