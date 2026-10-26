@@ -7,6 +7,8 @@ interface SplitTextProps {
   variant?: "rise" | "expose" | "warp";
   className?: string;
   stagger?: number; // seconds
+  delay?: number; // seconds base delay
+  trigger?: "mount" | "scroll" | string;
 }
 
 export function SplitText({
@@ -14,12 +16,14 @@ export function SplitText({
   variant = "rise",
   className = "",
   stagger = 0.035,
+  delay = 0,
+  trigger = "scroll",
 }: SplitTextProps) {
   const words = text.split(" ");
   let globalCharIndex = 0;
 
   return (
-    <span className={`inline-block ${className}`}>
+    <span className={`inline-block ${className}`} data-trigger={trigger} data-variant={variant}>
       {words.map((word, wIdx) => {
         const chars = Array.from(word);
         return (
@@ -31,7 +35,7 @@ export function SplitText({
                   key={cIdx}
                   className="inline-block transition-transform duration-700 ease-out"
                   style={{
-                    animationDelay: `${charIndex * stagger}s`,
+                    animationDelay: `${delay + charIndex * stagger}s`,
                   }}
                 >
                   {char}
