@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ProjectRoom } from "@/types/portfolio";
-import { X, ExternalLink, Github, BookOpen, Package } from "lucide-react";
+import { X, ExternalLink, Github, BookOpen, Package, ChevronLeft, ChevronRight, Image as ImageIcon } from "lucide-react";
 
 interface ProjectModalProps {
   room: ProjectRoom | null;
@@ -10,9 +10,30 @@ interface ProjectModalProps {
 }
 
 export function ProjectModal({ room, onClose }: ProjectModalProps) {
+  const [activeImageIdx, setActiveImageIdx] = useState(0);
+
+  // Reset active image when opening a different room
+  useEffect(() => {
+    setActiveImageIdx(0);
+  }, [room?.id]);
+
+  const gallery = room?.images && room.images.length > 0
+    ? room.images
+    : room?.previewImage
+    ? [{ url: room.previewImage, caption: room.title }]
+    : [];
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
+      if (gallery.length > 1) {
+        if (e.key === "ArrowLeft") {
+          setActiveImageIdx((prev) => (prev - 1 + gallery.length) % gallery.length);
+        }
+        if (e.key === "ArrowRight") {
+          setActiveImageIdx((prev) => (prev + 1) % gallery.length);
+        }
+      }
     };
     if (room) {
       document.body.style.overflow = "hidden";
@@ -22,9 +43,11 @@ export function ProjectModal({ room, onClose }: ProjectModalProps) {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [room, onClose]);
+  }, [room, onClose, gallery.length]);
 
   if (!room) return null;
+
+  const currentImage = gallery[activeImageIdx];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
@@ -35,7 +58,7 @@ export function ProjectModal({ room, onClose }: ProjectModalProps) {
       />
 
       {/* Modal Content */}
-      <div className="relative w-full max-w-2xl glass-panel rounded-2xl p-6 sm:p-8 md:p-10 border border-[var(--line-bright)] z-10 shadow-2xl animate-scale-up">
+      <div className="relative w-full max-w-3xl glass-panel rounded-2xl p-6 sm:p-8 md:p-10 border border-[var(--line-bright)] z-10 shadow-2xl animate-scale-up">
         {/* Header */}
         <div className="flex items-center justify-between pb-6 border-b border-[var(--line)]">
           <div className="flex items-center gap-3">
@@ -57,13 +80,76 @@ export function ProjectModal({ room, onClose }: ProjectModalProps) {
 
         {/* Body */}
         <div className="mt-6 space-y-6 max-h-[75vh] overflow-y-auto pr-1">
-          {room.previewImage && (
-            <div className="relative w-full h-44 sm:h-56 rounded-xl overflow-hidden border border-[var(--line)]">
-              <img
-                src={room.previewImage}
-                alt={room.title}
-                className="w-full h-full object-cover"
-              />
+          {/* Interactive Multi-Photo Gallery Carousel */}
+          {gallery.length > 0 && (
+            <div className="space-y-3">
+              <div className="relative w-full h-56 sm:h-80 rounded-xl overflow-hidden border border-[var(--line)] bg-[#070913] group">
+                <img
+                  key={currentImage.url}
+                  src={currentImage.url}
+                  alt={currentImage.caption || room.title}
+                  className="w-full h-full object-contain sm:object-cover transition-opacity duration-300"
+                />
+
+                {/* Navigation arrows (if multiple images) */}
+                {gallery.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => setActiveImageIdx((prev) => (prev - 1 + gallery.length) % gallery.length)}
+                      aria-label="Previous screenshot"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-[rgba(3,4,9,0.7)] backdrop-blur-md border border-[var(--line)] text-white hover:border-[var(--accent)] hover:bg-[rgba(120,166,255,0.2)] transition-all opacity-80 hover:opacity-100"
+                    >
+                      <ChevronLeft size={20} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveImageIdx((prev) => (prev + 1) % gallery.length)}
+                      aria-label="Next screenshot"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-[rgba(3,4,9,0.7)] backdrop-blur-md border border-[var(--line)] text-white hover:border-[var(--accent)] hover:bg-[rgba(120,166,255,0.2)] transition-all opacity-80 hover:opacity-100"
+                    >
+                      <ChevronRight size={20} />
+                    </button>
+
+                    {/* Image Counter Badge */}
+                    <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-[rgba(3,4,9,0.75)] backdrop-blur-md border border-[var(--line)] font-mono text-[11px] text-white flex items-center gap-1.5">
+                      <ImageIcon size={12} className="text-[var(--accent)]" />
+                      <span>{String(activeImageIdx + 1).padStart(2, "0")} / {String(gallery.length).padStart(2, "0")}</span>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Caption */}
+              {currentImage.caption && (
+                <p className="text-xs font-mono text-[var(--ink-2)] text-center italic">
+                  {currentImage.caption}
+                </p>
+              )}
+
+              {/* Thumbnails Row (if multiple images) */}
+              {gallery.length > 1 && (
+                <div className="flex gap-2.5 overflow-x-auto pb-1 pt-1 justify-center sm:justify-start">
+                  {gallery.map((img, idx) => (
+                    <button
+                      key={img.url + idx}
+                      type="button"
+                      onClick={() => setActiveImageIdx(idx)}
+                      className={`relative flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border transition-all ${
+                        activeImageIdx === idx
+                          ? "border-[var(--accent)] ring-2 ring-[var(--accent)]/30 scale-105"
+                          : "border-[var(--line)] opacity-60 hover:opacity-100"
+                      }`}
+                    >
+                      <img
+                        src={img.url}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 

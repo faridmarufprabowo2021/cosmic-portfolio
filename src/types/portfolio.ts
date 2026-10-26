@@ -38,6 +38,10 @@ export interface ProjectRoom {
     type?: "code" | "live" | "docs" | "npm";
   }[];
   previewImage?: string;
+  images?: {
+    url: string;
+    caption?: string;
+  }[];
 }
 
 export interface ExperienceRole {

@@ -156,8 +156,22 @@
           "href": "https://github.com/faridmarufprabowo2021/harvest-anime-releases"
         }
       ],
-      "image": "/images/projects/internship.png",
-      "imageCaption": "Harvest Anime Mobile UI with custom HLS cinema player and AniList metadata discovery."
+      "image": "/images/projects/harvest-anime-desktop.png",
+      "imageCaption": "Harvest Anime Cyber-Noir platform with custom HLS cinema player and AniList metadata discovery.",
+      "images": [
+        {
+          "url": "/images/projects/harvest-anime-desktop.png",
+          "caption": "Cyber-Noir Obsidian Abyss Terminal Showcase"
+        },
+        {
+          "url": "/images/projects/harvest-anime-catalog.png",
+          "caption": "Simulcast Airing Schedule & Episode Grid"
+        },
+        {
+          "url": "/images/projects/harvest-anime-mobile.png",
+          "caption": "Responsive Mobile Interface & HLS Player"
+        }
+      ]
     },
     {
       "id": "harvest-movie-web",
@@ -180,12 +194,26 @@
       ],
       "links": [
         {
+          "label": "Live App",
+          "href": "https://harvest-movie.vercel.app"
+        },
+        {
           "label": "GitHub",
           "href": "https://github.com/faridmarufprabowo2021/harvest-movie"
         }
       ],
-      "image": "/images/projects/openvote.png",
-      "imageCaption": "Harvest Movie Web Platform powered by Cloudflare Worker streaming proxy."
+      "image": "/images/projects/harvest-movie-desktop.png",
+      "imageCaption": "Harvest Movie Web Platform powered by Cloudflare Worker streaming proxy.",
+      "images": [
+        {
+          "url": "/images/projects/harvest-movie-desktop.png",
+          "caption": "Interactive Lego Billboard & Trending Movies"
+        },
+        {
+          "url": "/images/projects/harvest-movie-explore.png",
+          "caption": "Top 10 Brick Vault & Media Rails with Cloudflare HLS Proxy"
+        }
+      ]
     },
     {
       "id": "harvest-movie-mobile",
@@ -211,8 +239,18 @@
           "href": "https://github.com/faridmarufprabowo2021/harvest_movie_mobile"
         }
       ],
-      "image": "/images/projects/vibing-farmer.png",
-      "imageCaption": "Harvest Movie Mobile streaming client with intuitive video player gesture controls."
+      "image": "/images/projects/harvest-movie-explore.png",
+      "imageCaption": "Harvest Movie Mobile streaming client with intuitive video player gesture controls.",
+      "images": [
+        {
+          "url": "/images/projects/harvest-movie-explore.png",
+          "caption": "Movie Vault & Catalog Browsing"
+        },
+        {
+          "url": "/images/projects/harvest-movie-desktop.png",
+          "caption": "Video Player & Multi-Server Stream Selection"
+        }
+      ]
     },
     {
       "id": "scrollzen-reels",
@@ -238,8 +276,14 @@
           "href": "https://github.com/faridmarufprabowo2021/ScrollZen"
         }
       ],
-      "image": "/images/projects/rocky-demo.gif",
-      "imageCaption": "ScrollZen Reels Detection engine with real-time overlay notifications."
+      "image": "/images/projects/scrollzen-battle.webp",
+      "imageCaption": "ScrollZen Reels Detection engine with real-time overlay notifications.",
+      "images": [
+        {
+          "url": "/images/projects/scrollzen-battle.webp",
+          "caption": "Anti-Doomscrolling Battle Mode & Reels Blocker Overlay"
+        }
+      ]
     },
     {
       "id": "nusanotch-dynamic-island",
@@ -265,8 +309,22 @@
           "href": "https://github.com/faridmarufprabowo2021/NusaNotch"
         }
       ],
-      "image": "/images/projects/freelance_on_unpad.png",
-      "imageCaption": "NusaNotch Dynamic Island with live audio visualizer and synchronized lyrics."
+      "image": "/images/projects/nusanotch-music.png",
+      "imageCaption": "NusaNotch Dynamic Island with live audio visualizer and synchronized lyrics.",
+      "images": [
+        {
+          "url": "/images/projects/nusanotch-music.png",
+          "caption": "Live WASAPI Audio Visualizer & Music Player Card"
+        },
+        {
+          "url": "/images/projects/nusanotch-notifications.png",
+          "caption": "Dynamic Notification Drawer & Quick Actions"
+        },
+        {
+          "url": "/images/projects/nusanotch-media.png",
+          "caption": "Desktop System Tray & Island Control Bar"
+        }
+      ]
     }
   ],
   "articles": [

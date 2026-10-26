@@ -71,7 +71,12 @@ export const portfolioConfig: PortfolioConfig = {
         { label: "Releases", url: "https://github.com/faridmarufprabowo2021/harvest-anime-releases/releases", type: "live" },
         { label: "GitHub", url: "https://github.com/faridmarufprabowo2021/harvest-anime-releases", type: "code" },
       ],
-      previewImage: "/images/projects/internship.png",
+      previewImage: "/images/projects/harvest-anime-desktop.png",
+      images: [
+        { url: "/images/projects/harvest-anime-desktop.png", caption: "Cyber-Noir Obsidian Abyss Terminal Showcase" },
+        { url: "/images/projects/harvest-anime-catalog.png", caption: "Simulcast Airing Schedule & Episode Grid" },
+        { url: "/images/projects/harvest-anime-mobile.png", caption: "Responsive Mobile Interface & HLS Player" },
+      ],
     },
     {
       id: "harvest-movie",
@@ -84,9 +89,14 @@ export const portfolioConfig: PortfolioConfig = {
       description: "Platform streaming film dan serial TV full-stack modern dengan Cloudflare Worker HLS Proxy, integrasi TMDB API, Cinema Player interaktif, hybrid watch history, dan dynamic stream resolution.",
       tech: ["Next.js 15", "TypeScript", "Cloudflare Workers", "TMDB API", "Tailwind CSS", "SQLite", "Remotion"],
       links: [
+        { label: "Live App", url: "https://harvest-movie.vercel.app", type: "live" },
         { label: "GitHub", url: "https://github.com/faridmarufprabowo2021/harvest-movie", type: "code" },
       ],
-      previewImage: "/images/projects/openvote.png",
+      previewImage: "/images/projects/harvest-movie-desktop.png",
+      images: [
+        { url: "/images/projects/harvest-movie-desktop.png", caption: "Interactive Lego Billboard & Trending Movies" },
+        { url: "/images/projects/harvest-movie-explore.png", caption: "Top 10 Brick Vault & Media Rails with Cloudflare HLS Proxy" },
+      ],
     },
     {
       id: "harvest-movie-mobile",
@@ -101,7 +111,11 @@ export const portfolioConfig: PortfolioConfig = {
       links: [
         { label: "GitHub", url: "https://github.com/faridmarufprabowo2021/harvest_movie_mobile", type: "code" },
       ],
-      previewImage: "/images/projects/vibing-farmer.png",
+      previewImage: "/images/projects/harvest-movie-explore.png",
+      images: [
+        { url: "/images/projects/harvest-movie-explore.png", caption: "Movie Vault & Catalog Browsing" },
+        { url: "/images/projects/harvest-movie-desktop.png", caption: "Video Player & Multi-Server Stream Selection" },
+      ],
     },
     {
       id: "scrollzen-reels",
@@ -116,7 +130,10 @@ export const portfolioConfig: PortfolioConfig = {
       links: [
         { label: "GitHub", url: "https://github.com/faridmarufprabowo2021/ScrollZen", type: "code" },
       ],
-      previewImage: "/images/projects/rocky-demo.gif",
+      previewImage: "/images/projects/scrollzen-battle.webp",
+      images: [
+        { url: "/images/projects/scrollzen-battle.webp", caption: "Anti-Doomscrolling Battle Mode & Reels Blocker Overlay" },
+      ],
     },
     {
       id: "nusanotch",
@@ -131,7 +148,12 @@ export const portfolioConfig: PortfolioConfig = {
       links: [
         { label: "GitHub", url: "https://github.com/faridmarufprabowo2021/NusaNotch", type: "code" },
       ],
-      previewImage: "/images/projects/freelance_on_unpad.png",
+      previewImage: "/images/projects/nusanotch-music.png",
+      images: [
+        { url: "/images/projects/nusanotch-music.png", caption: "Live WASAPI Audio Visualizer & Music Player Card" },
+        { url: "/images/projects/nusanotch-notifications.png", caption: "Dynamic Notification Drawer & Quick Actions" },
+        { url: "/images/projects/nusanotch-media.png", caption: "Desktop System Tray & Island Control Bar" },
+      ],
     },
   ],
 
