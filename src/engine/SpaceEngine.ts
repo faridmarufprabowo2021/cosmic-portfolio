@@ -132,6 +132,19 @@ export class SpaceEngine {
     this.scene.add(this.backgroundStars);
   }
 
+  public anchor(selector: string): { cx: number; cy: number; w: number; h: number } | null {
+    if (typeof document === "undefined") return null;
+    const el = document.querySelector(selector);
+    if (!el) return null;
+    const rect = el.getBoundingClientRect();
+    return {
+      cx: rect.left + rect.width / 2,
+      cy: rect.top + rect.height / 2,
+      w: rect.width,
+      h: rect.height,
+    };
+  }
+
   public setScrollProgress(progress: number, activeRoom = 0) {
     this.targetProgress = Math.max(0, Math.min(1, progress));
     this.activeRoomIndex = activeRoom;
