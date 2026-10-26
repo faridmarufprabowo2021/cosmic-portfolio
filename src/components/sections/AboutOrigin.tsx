@@ -66,7 +66,7 @@ export function AboutOrigin({ personal }: AboutOriginProps) {
                 className="w-full aspect-[4/5] object-cover rounded-xl"
               />
               <span className="text-[10px] font-mono text-[var(--ink-3)] mt-2 text-center">
-                Muhammad Faiq
+                {personal.name}
               </span>
             </div>
           </div>

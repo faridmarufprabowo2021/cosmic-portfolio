@@ -59,7 +59,7 @@ export function LoaderIntro() {
             <span className="loader-age text-[var(--accent)] font-semibold">t &lt; 0</span>
           </span>
           <span className="text-[var(--ink-3)]">·</span>
-          <span className="text-[var(--ink-3)]">Bandung, ID</span>
+          <span className="text-[var(--ink-3)]">Surakarta, ID</span>
         </p>
       </div>
     </div>
