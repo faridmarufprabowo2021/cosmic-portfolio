@@ -176,9 +176,9 @@ export class EarthWorld {
     this.atmosphereMesh = new THREE.Mesh(atmosGeo, atmosMat);
     this.group.add(this.atmosphereMesh);
 
-    // 4. Bandung Coordinate Pin: 6.9175°S, 107.6191°E
-    const lat = -6.9175 * (Math.PI / 180);
-    const lon = (107.6191 - 180) * (Math.PI / 180);
+    // 4. Surakarta Coordinate Pin: 7.5561°S, 110.7725°E
+    const lat = -7.5561 * (Math.PI / 180);
+    const lon = (110.7725 - 180) * (Math.PI / 180);
 
     const pinPos = new THREE.Vector3(
       -(radius + 0.05) * Math.cos(lat) * Math.cos(lon),
