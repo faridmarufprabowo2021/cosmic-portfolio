@@ -1,0 +1,13 @@
+{
+  "name": "cosmic-portfolio",
+  "version": "1.0.0",
+  "description": "1:1 Exact Parity Cosmic 3D Portfolio Clone",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "serve": "node server.js"
+  },
+  "keywords": ["threejs", "portfolio", "cosmic", "webgl"],
+  "author": "",
+  "license": "ISC"
+}

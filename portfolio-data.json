@@ -1,0 +1,268 @@
+{
+  "profile": {
+    "name": "Muhammad Faiq",
+    "headline": "Full Stack Developer",
+    "subheadline": "Building scalable web applications & exploring the frontier of AI, Web3, and Blockchain.",
+    "email": "iq@poggufanz.xyz",
+    "location": "West Java, Indonesia",
+    "city": "West Java",
+    "country": "Indonesia",
+    "coordinates": "6.9175°S 107.6191°E",
+    "github": "https://github.com/poggufanz",
+    "linkedin": "https://www.linkedin.com/in/mfaiqmf/"
+  },
+  "systems": [
+    "Full-Stack Development",
+    "Database & Backend",
+    "Web3 & Blockchain",
+    "DevOps & Deployment",
+    "AI & Machine Learning",
+    "System Analysis"
+  ],
+  "stack": [
+    "Laravel",
+    "Vue.js",
+    "React",
+    "TypeScript",
+    "PHP",
+    "Stellar",
+    "Web3",
+    "DevOps"
+  ],
+  "experiences": [
+    {
+      "title": "Full Stack Developer",
+      "company": "PT Anyar Retail Indonesia",
+      "companyType": "Retail Group · RKM, Triwarna, ABM",
+      "location": "Rancaekek, West Java",
+      "period": "Jul 2026 - Present",
+      "isCurrent": true,
+      "project": "Business Operations Systems",
+      "description": [
+        "Designing and developing web & mobile application solutions supporting business operations across the RKM, Triwarna, and ABM retail brands",
+        "Analyzing business requirements and developing technology solutions aligned with company goals",
+        "Implementing, testing, and maintaining the company's IT systems and applications",
+        "Collaborating with cross-functional teams to identify and resolve IT issues",
+        "Assisting in the development, improvement, and optimization of the company's IT infrastructure",
+        "Documenting IT processes and procedures to ensure operational continuity"
+      ],
+      "tech": [
+        "Web Development",
+        "Mobile",
+        "System Analysis",
+        "DevOps",
+        "IT Infrastructure"
+      ]
+    },
+    {
+      "title": "Full Stack Developer",
+      "company": "SUNURTECH",
+      "companyType": "IT Consultant",
+      "location": "Bandung, West Java",
+      "period": "Jan 2026 - Jul 2026",
+      "isCurrent": false,
+      "project": "Manajemen Proyek",
+      "description": [
+        "Built the 'Manajemen Proyek' platform end-to-end for an IT consulting company",
+        "Conducted system analysis to define functional & technical specifications aligned with client needs",
+        "Wrote and developed program code per tasks assigned by the Team Leader / Project Manager",
+        "Performed module integration and internal functional testing across the system",
+        "Handled DevOps: setup, deployment, and management of both development and production server environments",
+        "Resolved bugs, errors, and change requests following the project revision workflow",
+        "Participated in daily standups and client-facing meetings per project schedule"
+      ],
+      "tech": [
+        "Laravel",
+        "PHP",
+        "MySQL",
+        "Vue.js",
+        "DevOps",
+        "System Analysis"
+      ]
+    },
+    {
+      "title": "Full Stack Developer",
+      "company": "LMFEB UNPAD",
+      "companyType": "University Research Lab",
+      "location": "Bandung, West Java",
+      "period": "Jul 2024 - Dec 2024",
+      "isCurrent": false,
+      "project": "MSME Digital Operations",
+      "description": [
+        "Developed a Laravel-based application empowering 10+ MSMEs to digitize their operations",
+        "Built performance analysis dashboards, improving business decision-making speed by 25%",
+        "Designed user-friendly interfaces for inventory management and financial tracking",
+        "Automated generation of 5+ financial reports (ledger, balance sheet, P&L, etc.)",
+        "Created collaboration features enabling MSMEs to connect and grow together"
+      ],
+      "tech": [
+        "Laravel",
+        "PHP",
+        "MySQL",
+        "JavaScript",
+        "Bootstrap"
+      ]
+    },
+    {
+      "title": "Software Engineer Intern",
+      "company": "KJA Kasir CA BKP",
+      "companyType": "Accounting Firm",
+      "location": "Bandung, West Java",
+      "period": "Oct 2023 - Mar 2024",
+      "isCurrent": false,
+      "project": "Financial Report Application",
+      "description": [
+        "Built a web-based financial report application transforming raw transactional data into actionable insights",
+        "Managed complete data flows: purchase orders, goods receipts, sales orders, and invoices",
+        "Generated reports including general ledger, balance sheet, and P&L statements",
+        "Supported stock opname (inventory check) and cash opname (cash reconciliation)",
+        "Improved report preparation efficiency by 20% through process automation"
+      ],
+      "tech": [
+        "PHP",
+        "MySQL",
+        "JavaScript",
+        "HTML/CSS"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "slug": "rocky",
+      "title": "Rocky",
+      "group": "Side Projects",
+      "type": "Side Project",
+      "period": "Aug 2026 - Present",
+      "status": "Active",
+      "impact": "Published on npm",
+      "summary": "Local CLI memory for AI coding agents. Remembers failed commands and the fixes that actually worked.",
+      "description": "Local CLI companion for AI coding agents (Claude Code, Codex, and others). Remembers failed commands and the fixes that actually worked, feeds that memory back over MCP so the same error never repeats, and requires a stated rationale before an agent touches your files. Local-only, zero runtime dependencies, append-only ledger you own.",
+      "tech": [
+        "TypeScript",
+        "Node.js",
+        "MCP",
+        "CLI",
+        "Ollama"
+      ],
+      "image": "/images/projects/rocky-demo.gif",
+      "imageCaption": "rocky remembers a failed build, and the fix that turned it green",
+      "links": [
+        {
+          "label": "Code",
+          "href": "https://github.com/poggufanz/rocky"
+        },
+        {
+          "label": "npm",
+          "href": "https://www.npmjs.com/package/@poggufanz/rocky-cli"
+        }
+      ]
+    },
+    {
+      "slug": "vibing-farmer",
+      "title": "Vibing Farmer",
+      "group": "Side Projects",
+      "type": "Side Project",
+      "period": "2026",
+      "status": "Live · Testnet",
+      "impact": "1 signature · 0 gas for users",
+      "summary": "AI agent swarm that farms yield on Stellar under limits you sign once and the chain enforces.",
+      "description": "AI agent swarm that farms yield on Stellar under limits you sign once and the chain enforces. An AI strategist + council plans the allocation, workers deposit in parallel gas-free via a fee-bump relay, and kill switches live on-chain. Live on Stellar testnet, supplying real Blend Capital v2 pools.",
+      "tech": [
+        "Stellar",
+        "Soroban",
+        "Rust",
+        "React",
+        "Blend Capital"
+      ],
+      "image": "/images/projects/vibing-farmer.png",
+      "imageCaption": "Plan · Protect · Start: one signed grant, parallel gas-free agents",
+      "links": [
+        {
+          "label": "Code",
+          "href": "https://github.com/poggufanz/vibingfarmer"
+        },
+        {
+          "label": "Live App",
+          "href": "https://vibing-farmer.pages.dev"
+        }
+      ]
+    },
+    {
+      "slug": "openvote",
+      "title": "OpenVote",
+      "group": "Side Projects",
+      "type": "Hackathon · WCHL 2025",
+      "period": "Jul 2025",
+      "status": "In Development",
+      "impact": "Enabling transparent governance",
+      "summary": "Decentralized voting with wallet integration and single, multiple, and ranked-choice ballots.",
+      "description": "Decentralized voting platform ensuring secure, transparent, and participatory governance. Features wallet integration and multiple voting methods (single, multiple, and ranked choice).",
+      "tech": [
+        "Web3",
+        "Blockchain",
+        "Smart Contracts",
+        "React",
+        "Solidity"
+      ],
+      "image": "/images/projects/openvote.png",
+      "imageCaption": "wallet-based voting with ranked choice support",
+      "links": [
+        {
+          "label": "Code",
+          "href": "https://github.com/poggufanz/dao-tools"
+        }
+      ]
+    },
+    {
+      "slug": "msme-management-system",
+      "title": "MSME Management System",
+      "group": "Client Work",
+      "type": "Client Project",
+      "period": "Jul 2024 - Dec 2024",
+      "status": "Completed",
+      "impact": "Improved efficiency by 25%",
+      "summary": "Laravel platform helping 10+ MSMEs digitize operations, dashboards, and financial reporting.",
+      "description": "Laravel-based application empowering 10+ MSMEs to digitize operations with performance dashboards, inventory management, and automated financial reporting.",
+      "tech": [
+        "Laravel",
+        "PHP",
+        "MySQL",
+        "JavaScript",
+        "Bootstrap"
+      ],
+      "image": "/images/projects/freelance_on_unpad.png",
+      "imageCaption": "performance dashboards for MSME decision-making",
+      "links": [
+        {
+          "label": "Docs",
+          "href": "https://sipeci.gitbook.io/"
+        }
+      ]
+    },
+    {
+      "slug": "financial-reporting-system",
+      "title": "Financial Reporting System",
+      "group": "Client Work",
+      "type": "Internship Project",
+      "period": "Oct 2023 - Mar 2024",
+      "status": "Completed",
+      "impact": "Automated 5+ financial reports",
+      "summary": "Accounting system turning raw transactions into ledger, balance sheet, and P&L statements.",
+      "description": "Comprehensive accounting system for managing purchase orders, sales, and generating financial reports including ledger, balance sheet, and P&L statements.",
+      "tech": [
+        "PHP",
+        "MySQL",
+        "JavaScript",
+        "HTML/CSS"
+      ],
+      "image": "/images/projects/internship.png",
+      "imageCaption": "ledger, balance sheet, and P&L generated from raw transactions",
+      "links": [
+        {
+          "label": "Code",
+          "href": "https://github.com/poggufanz/project-akuntan"
+        }
+      ]
+    }
+  ]
+}
