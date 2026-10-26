@@ -24,3 +24,6 @@ search-*.js
 update-all-*.js
 add-cache-bust.js
 enable-default-sound.js
+test-cloudflare-live.js
+check-wrangler-*.js
+read-wrangler-*.js
