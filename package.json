@@ -1,13 +1,43 @@
 {
   "name": "cosmic-portfolio",
   "version": "1.0.0",
-  "description": "1:1 Exact Parity Cosmic 3D Portfolio Clone",
+  "description": "1:1 Exact Parity Cosmic 3D Portfolio - Next.js TSX Reconstruction & Production Mirror",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "serve": "node server.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "serve:mirror": "node server.js",
+    "update:data": "node update-portfolio.js"
   },
-  "keywords": ["threejs", "portfolio", "cosmic", "webgl"],
-  "author": "",
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lenis": "^1.3.27",
+    "lucide-react": "^0.468.0",
+    "next": "^15.5.28",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwind-merge": "^2.6.1",
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.170.0",
+    "autoprefixer": "^10.6.1",
+    "postcss": "^8.5.31",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "threejs",
+    "portfolio",
+    "cosmic",
+    "webgl",
+    "nextjs",
+    "tailwind"
+  ],
+  "author": "Farid Maruf Prabowo",
   "license": "ISC"
 }
