@@ -15,3 +15,10 @@ catch-*.js
 find-*.js
 patch-*.js
 diagnose-*.js
+
+audit-*.js
+dump-*.js
+inspect-*.js
+locate-*.js
+search-*.js
+update-all-*.js

@@ -1,15 +1,17 @@
 {
   "profile": {
     "name": "Farid Ma'ruf Prabowo",
-    "headline": "Full-Stack Engineer & AI Developer",
-    "subheadline": "Membangun perangkat lunak dengan pendekatan modular dan presisi seperti balok LEGO.",
+    "headline": "ENGINEERING SCALABLE SYSTEMS WITH PURPOSE.",
+    "subheadline": "Maba Teknik Informatika UMS 2026 & Alumni MAN 1 Surakarta — Building scalable systems modularly.",
     "email": "faridmarufprabowo@gmail.com",
     "location": "Surakarta, Jawa Tengah, Indonesia",
     "city": "Surakarta",
     "country": "Indonesia",
     "coordinates": "7.5561°S 110.7725°E",
     "github": "https://github.com/faridmarufprabowo2021",
-    "linkedin": "https://linkedin.com/in/faridmarufprabowo"
+    "linkedin": "https://linkedin.com/in/faridmarufprabowo",
+    "role": "Full-Stack Software Engineer • S1 Informatika UMS (Alumni MAN 1 Surakarta)",
+    "quote": "Membangun perangkat lunak dengan pendekatan modular dan presisi seperti balok LEGO — kokoh, terukur, dan siap dikembangkan."
   },
   "systems": [
     "Full-Stack Development",
@@ -344,5 +346,63 @@
       "readingMinutes": 5,
       "lang": "ID"
     }
-  ]
+  ],
+  "about": {
+    "statement": "Membangun perangkat lunak dengan pendekatan modular dan presisi seperti balok LEGO — kokoh, terukur, dan siap dikembangkan ke masa depan.",
+    "paragraphs": [
+      "Halo! Saya Farid Ma'ruf Prabowo, mahasiswa S1 Teknik Informatika di Universitas Muhammadiyah Surakarta (UMS 2026) dan alumni MAN 1 Surakarta. Saya adalah problem solver yang berfokus pada rekayasa backend berkinerja tinggi, otomatisasi sistem modern, dan integrasi Artificial Intelligence.",
+      "Spesialis arsitektur backend TypeScript (Next.js 15, Fastify, NestJS), otomatisasi WhatsApp CRM multi-tenant, dan Computer Vision berbasis Python (MediaPipe & OpenCV). Saya meletakkan fondasi kuat pada Docker, Redis, PostgreSQL, arsitektur microservices terdistribusi, dan clean architecture.",
+      "Bagi saya, perangkat lunak yang hebat bukan hanya yang sekadar berfungsi, melainkan yang dibangun dengan arsitektur modular yang bersih, performa tangguh, dan siap dikembangkan ke masa depan."
+    ],
+    "facts": [
+      {
+        "key": "EDU",
+        "label": "Education",
+        "value": "S1 Teknik Informatika, Universitas Muhammadiyah Surakarta (UMS 2026)"
+      },
+      {
+        "key": "ALUMNI",
+        "label": "Alumni",
+        "value": "MAN 1 Surakarta (MIPA / Sains & Teknologi)"
+      },
+      {
+        "key": "STATUS",
+        "label": "Status",
+        "value": "Maba UMS 2026 & Independent Software Engineer"
+      },
+      {
+        "key": "FOCUS",
+        "label": "Focus",
+        "value": "Full-Stack Web, Mobile Apps, AI & Computer Vision"
+      },
+      {
+        "key": "ACHV",
+        "label": "Certifications",
+        "value": "Dicoding Full-Stack & DeepLearning.AI Computer Vision"
+      },
+      {
+        "key": "BASE",
+        "label": "Location",
+        "value": "Surakarta, Jawa Tengah, Indonesia"
+      }
+    ],
+    "systems": [
+      "Full-Stack Web & Mobile",
+      "High-Speed Backend & API",
+      "WhatsApp CRM & Automation",
+      "Computer Vision & AI",
+      "Cloud & Docker Container",
+      "Distributed Systems Architecture"
+    ],
+    "stack": [
+      "Next.js 15",
+      "TypeScript",
+      "Flutter",
+      "Fastify",
+      "Python",
+      "OpenCV",
+      "PostgreSQL",
+      "Docker"
+    ]
+  }
 }
