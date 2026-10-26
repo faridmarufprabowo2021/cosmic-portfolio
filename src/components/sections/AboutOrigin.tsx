@@ -1,126 +1,116 @@
 "use client";
 
 import { PersonalProfile } from "@/types/portfolio";
-import { SplitText } from "@/components/ui/SplitText";
 
 interface AboutOriginProps {
   personal: PersonalProfile;
 }
 
 export function AboutOrigin({ personal }: AboutOriginProps) {
+  const words = personal.quote.split(" ");
+
   return (
-    <section id="about" data-world="origin" className="relative py-32 px-6 sm:px-12 md:px-20 max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="mb-20">
-        <p className="eyebrow mb-6">
-          <span className="eyebrow-idx">02</span>
-          <span className="eyebrow-rule" />
-          <span>About</span>
-        </p>
-
-        {/* Dawn Statement */}
-        <p className="text-2xl sm:text-4xl md:text-5xl font-light text-white leading-tight max-w-4xl">
-          <span>{personal.statement.lead}</span>{" "}
-          <span className="text-[var(--ink-3)] font-normal">{personal.statement.focus}</span>
-        </p>
-      </div>
-
-      {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24">
-        {/* Bio Paragraphs */}
-        <div className="lg:col-span-6 space-y-6">
-          <p className="text-lg sm:text-xl text-[var(--accent)] font-medium leading-relaxed">
-            {personal.tagline}
+    <section id="about" data-world="origin" className="section section-origin relative">
+      <div className="grid grid-cols-12 gap-y-14 md:gap-x-6">
+        {/* Eyebrow & Dawn Statement */}
+        <div className="relative col-span-12">
+          <p className="eyebrow" data-reveal="true">
+            <span className="eyebrow-idx">02</span>
+            <span className="eyebrow-rule" />
+            <span>About</span>
           </p>
 
-          {personal.paragraphs.map((p, i) => (
-            <p key={i} className="text-sm sm:text-base text-[var(--ink-2)] leading-relaxed font-light">
-              {p}
+          <p className="statement mt-9 max-w-[26ch]">
+            {words.map((word, idx) => (
+              <span key={idx} className="dawn-w" style={{ "--a": "0.160" } as React.CSSProperties}>
+                {word}{" "}
+              </span>
+            ))}
+          </p>
+
+          {/* Comet anchor for 3D trajectory alignment */}
+          <div data-anchor="comet" aria-hidden="true" className="comet-anchor" />
+        </div>
+
+        {/* Bio Narrative Paragraphs */}
+        <div className="col-span-12 space-y-5 lg:col-span-6 xl:col-span-5" data-reveal="true">
+          <p className="lede">{personal.tagline}</p>
+          {personal.paragraphs.map((para, i) => (
+            <p key={i} className="body">
+              {para}
             </p>
           ))}
         </div>
 
-        {/* Profile Facts & Quote & Portrait */}
-        <div className="lg:col-span-6 space-y-8">
-          <div className="grid grid-cols-1 sm:grid-cols-[1fr_180px] gap-6">
-            <div className="p-6 sm:p-8 rounded-2xl glass-panel border border-[var(--line)]">
-              <h4 className="font-mono text-xs uppercase text-[var(--ink-3)] tracking-wider mb-6">
-                PROFILE SPECIFICATIONS
-              </h4>
-
-              <dl className="space-y-4 font-mono text-xs">
+        {/* Profile Facts & Portrait */}
+        <div className="col-span-12 lg:col-span-6 xl:col-span-6 xl:col-start-7">
+          <div className="grid gap-10 sm:grid-cols-[1fr_200px]">
+            <div data-reveal="true" style={{ "--d": "0.1s" } as React.CSSProperties}>
+              <p className="label mb-4">Profile</p>
+              <dl className="facts">
                 {personal.facts.map((fact) => (
-                  <div key={fact.key} className="flex justify-between py-2 border-b border-[var(--line)]">
-                    <dt className="text-[var(--ink-3)]">{fact.label}</dt>
-                    <dd className="text-white text-right font-medium">{fact.value}</dd>
+                  <div key={fact.key} className="facts-row">
+                    <dt>{fact.label}</dt>
+                    <dd>{fact.value}</dd>
                   </div>
                 ))}
               </dl>
             </div>
 
-            {/* Profile Photo */}
-            <div className="rounded-2xl overflow-hidden glass-panel border border-[var(--line)] p-2 flex flex-col items-center">
-              <img
-                src={personal.photo}
-                alt={personal.name}
-                className="w-full aspect-[4/5] object-cover rounded-xl"
-              />
-              <span className="text-[10px] font-mono text-[var(--ink-3)] mt-2 text-center">
-                {personal.name}
-              </span>
-            </div>
-          </div>
-
-          {/* Quote Card */}
-          <div className="p-6 rounded-2xl bg-[rgba(14,20,34,0.35)] border border-[var(--line)]">
-            <blockquote className="text-sm text-[var(--ink-2)] italic font-light leading-relaxed">
-              “{personal.quote}”
-            </blockquote>
+            <figure className="portrait self-start" data-reveal="true" style={{ "--d": "0.25s" } as React.CSSProperties}>
+              <div className="portrait-frame">
+                <img
+                  src={personal.photo}
+                  alt={`${personal.name}, profile photo`}
+                  width={320}
+                  height={400}
+                  loading="lazy"
+                  className="block aspect-[4/5] w-full object-cover"
+                />
+              </div>
+              <figcaption className="portrait-cap">
+                <span>“{personal.quote}”</span>
+              </figcaption>
+            </figure>
           </div>
         </div>
-      </div>
 
-      {/* Capabilities & Stack */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 pt-12 border-t border-[var(--line)]">
-        <div>
-          <h4 className="font-mono text-xs uppercase text-[var(--ink-3)] tracking-wider mb-6">
-            CAPABILITIES
-          </h4>
-          <ul className="space-y-3 font-mono text-sm">
-            {personal.capabilities.map((cap, i) => (
-              <li key={cap} className="flex items-center gap-4 text-white">
-                <span className="text-xs text-[var(--accent)] font-bold">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span>{cap}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {/* Capabilities & Stack */}
+        <div className="col-span-12 grid gap-10 border-t border-[var(--line)] pt-10 md:grid-cols-2 halo" data-reveal="true">
+          <div>
+            <p className="label mb-5">Capabilities</p>
+            <ul className="caps">
+              {personal.capabilities.map((cap, idx) => (
+                <li key={cap}>
+                  <span className="caps-idx">{String(idx + 1).padStart(2, "0")}</span>
+                  {cap}
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        <div>
-          <h4 className="font-mono text-xs uppercase text-[var(--ink-3)] tracking-wider mb-6">
-            STACK MATRIX
-          </h4>
-          <div className="flex flex-wrap gap-2.5">
-            {personal.stack.map((item) => (
-              <span
-                key={item}
-                className="px-3 py-1.5 rounded-md bg-[rgba(255,255,255,0.04)] border border-[var(--line)] font-mono text-xs text-[var(--ink)] hover:border-[var(--accent)] transition-colors"
-              >
-                {item}
-              </span>
-            ))}
+          <div>
+            <p className="label mb-5">Stack</p>
+            <ul className="chips">
+              {personal.stack.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
 
-      {/* Origin Geotag */}
-      <div className="mt-20 pt-8 border-t border-[var(--line)] flex justify-between items-center font-mono text-xs text-[var(--ink-3)]">
-        <p>
-          <span className="text-[var(--accent)] font-bold">ORIGIN</span> — {personal.location}
+      {/* Origin Planet Anchor */}
+      <div
+        data-anchor="origin"
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[44svh]"
+      >
+        <p className="origin-tag halo">
+          <span className="text-[var(--ink)]">Origin</span> — {personal.location}
+          <br />
+          {personal.coordinates}
         </p>
-        <p>{personal.coordinates}</p>
       </div>
     </section>
   );

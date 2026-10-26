@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark motion-ok" suppressHydrationWarning>
+    <html lang="en" data-audio="on" className="__variable_7347c0 __variable_5acc54 motion-ok" suppressHydrationWarning>
       <head>
         <link rel="stylesheet" href="/original.css" />
         <script

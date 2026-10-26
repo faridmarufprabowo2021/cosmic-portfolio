@@ -218,7 +218,8 @@ export class SpaceEngine {
     const vGalaxy = this.calculateVisibility(p, 0.84, 1.0, 1.05);
 
     // Update worlds
-    this.blackHoleWorld.update(time, delta, vBlackHole);
+    const bhAnchor = this.anchor('[data-anchor="blackhole"]');
+    this.blackHoleWorld.update(time, delta, vBlackHole, bhAnchor);
     this.tesseractWorld.update(time, vTesseract, this.activeRoomIndex);
     this.earthWorld.update(time, vEarth);
     this.trailsWorld.update(time, vTrails);

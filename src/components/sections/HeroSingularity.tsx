@@ -1,7 +1,6 @@
 "use client";
 
 import { PersonalProfile } from "@/types/portfolio";
-import { SplitText } from "@/components/ui/SplitText";
 
 interface HeroSingularityProps {
   personal: PersonalProfile;
@@ -12,27 +11,17 @@ export function HeroSingularity({ personal }: HeroSingularityProps) {
     <section
       id="top"
       data-world="blackhole"
-      className="relative min-h-[100svh] flex flex-col justify-center items-center px-6 text-center overflow-x-clip pointer-events-none"
+      aria-labelledby="hero-heading"
+      className="relative min-h-[100svh] overflow-x-clip"
     >
-      <div className="max-w-4xl mx-auto space-y-6 pt-20">
-        <p className="eyebrow justify-center">
-          <span className="eyebrow-idx">00</span>
-          <span className="eyebrow-rule" />
-          <span>SINGULARITY · HORIZON</span>
-        </p>
-
-        <h1 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight uppercase text-white drop-shadow-2xl">
-          <SplitText text={personal.name} variant="rise" stagger={0.04} />
-        </h1>
-
-        <p className="font-mono text-sm sm:text-base text-[var(--accent)] tracking-widest uppercase">
-          {personal.title}
-        </p>
-
-        <p className="max-w-xl mx-auto text-sm sm:text-base text-[var(--ink-2)] leading-relaxed font-light">
-          {personal.tagline}
-        </p>
-      </div>
+      <h1 id="hero-heading" tabIndex={-1} className="sr-only">
+        {personal.name}
+      </h1>
+      <div
+        data-anchor="blackhole"
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[160vw] -translate-x-1/2 -translate-y-1/2 sm:w-[min(129vw,174vh)]"
+      />
     </section>
   );
 }

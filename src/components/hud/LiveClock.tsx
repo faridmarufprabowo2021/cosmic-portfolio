@@ -7,7 +7,7 @@ interface LiveClockProps {
   city?: string;
 }
 
-export function LiveClock({ timeZone = "Asia/Jakarta", city = "West Java" }: LiveClockProps) {
+export function LiveClock({ timeZone = "Asia/Jakarta", city = "Surakarta" }: LiveClockProps) {
   const [timeStr, setTimeStr] = useState("00:00:00");
 
   useEffect(() => {

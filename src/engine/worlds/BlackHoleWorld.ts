@@ -1,199 +1,102 @@
 import * as THREE from "three";
+import { BLACKHOLE_VERT, BLACKHOLE_FRAG } from "../shaders/blackhole";
 
 export class BlackHoleWorld {
   public group: THREE.Group;
-  private diskMaterial!: THREE.ShaderMaterial;
-  private photonRing!: THREE.Mesh;
-  private particleSystem!: THREE.Points;
-  private particlePositions!: Float32Array;
-  private particleSpeeds!: Float32Array;
-  private particleRadii!: Float32Array;
-  private particleAngles!: Float32Array;
-  private particleCount = 1200;
+  private material: THREE.ShaderMaterial;
+  private quad: THREE.Mesh;
+  private center = new THREE.Vector2();
+  private res = new THREE.Vector2();
+  private pointer = new THREE.Vector2();
 
   constructor() {
     this.group = new THREE.Group();
-    this.init();
-  }
 
-  private init() {
-    // 1. Event Horizon Sphere (Pure Black void)
-    const horizonGeo = new THREE.SphereGeometry(2.4, 64, 64);
-    const horizonMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
-    const horizon = new THREE.Mesh(horizonGeo, horizonMat);
-    this.group.add(horizon);
-
-    // 2. Photon Ring (High-intensity sharp rim)
-    const ringGeo = new THREE.RingGeometry(2.42, 2.7, 96);
-    const ringMat = new THREE.ShaderMaterial({
+    // Fullscreen quad for raymarched screen-space relativistic blackhole
+    const geo = new THREE.PlaneGeometry(2, 2);
+    this.material = new THREE.ShaderMaterial({
+      vertexShader: BLACKHOLE_VERT,
+      fragmentShader: BLACKHOLE_FRAG,
       transparent: true,
-      blending: THREE.AdditiveBlending,
-      side: THREE.DoubleSide,
       depthWrite: false,
+      depthTest: false,
       uniforms: {
         uTime: { value: 0 },
+        uRes: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+        uCenter: { value: new THREE.Vector2(window.innerWidth / 2, window.innerHeight / 2) },
+        uSize: { value: Math.min(window.innerWidth, window.innerHeight) * 0.42 },
+        uPointer: { value: new THREE.Vector2(0, 0) },
+        uFall: { value: 0 },
+        uDive: { value: 0 },
+        uTilt: { value: -0.06 },
+        uIncl: { value: 0.085 },
+        uFormation: { value: new THREE.Vector3(1, 1, 1) },
+        uFeed: { value: 1.0 },
+        uCode: { value: 1.0 },
         uOpacity: { value: 1.0 },
       },
-      vertexShader: `
-        varying vec2 vUv;
-        void main() {
-          vUv = uv;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-      fragmentShader: `
-        uniform float uTime;
-        uniform float uOpacity;
-        varying vec2 vUv;
-        void main() {
-          float dist = length(vUv - vec2(0.5));
-          float intensity = smoothstep(0.49, 0.45, dist) * smoothstep(0.38, 0.44, dist) * 2.2;
-          vec3 col = mix(vec3(1.0, 0.85, 0.6), vec3(0.5, 0.75, 1.0), sin(uTime * 2.0) * 0.5 + 0.5);
-          gl_FragColor = vec4(col * intensity, intensity * uOpacity * 0.95);
-        }
-      `,
-    });
-    this.photonRing = new THREE.Mesh(ringGeo, ringMat);
-    this.photonRing.rotation.x = Math.PI / 2.3;
-    this.group.add(this.photonRing);
-
-    // 3. Accretion Disk (Shader with Doppler beaming & swirling noise)
-    const diskGeo = new THREE.RingGeometry(2.8, 8.5, 128);
-    this.diskMaterial = new THREE.ShaderMaterial({
-      transparent: true,
-      blending: THREE.AdditiveBlending,
-      side: THREE.DoubleSide,
-      depthWrite: false,
-      uniforms: {
-        uTime: { value: 0 },
-        uOpacity: { value: 1.0 },
-      },
-      vertexShader: `
-        varying vec2 vUv;
-        varying vec3 vPos;
-        void main() {
-          vUv = uv;
-          vPos = position;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-      fragmentShader: `
-        uniform float uTime;
-        uniform float uOpacity;
-        varying vec2 vUv;
-        varying vec3 vPos;
-
-        // Pseudo noise
-        float hash(vec2 p) {
-          return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
-        }
-        float noise(vec2 p) {
-          vec2 i = floor(p);
-          vec2 f = fract(p);
-          vec2 u = f*f*(3.0-2.0*f);
-          return mix(mix(hash(i + vec2(0.0,0.0)), hash(i + vec2(1.0,0.0)), u.x),
-                     mix(hash(i + vec2(0.0,1.0)), hash(i + vec2(1.0,1.0)), u.x), u.y);
-        }
-
-        void main() {
-          float r = length(vPos.xy);
-          float angle = atan(vPos.y, vPos.x);
-
-          // Swirl coord
-          float spiral = angle * 3.0 - r * 1.5 + uTime * 2.2;
-          float n = noise(vec2(spiral, r * 2.0));
-
-          // Radial falloff: brightest near photon ring, soft at outer edge
-          float radialFade = smoothstep(2.7, 3.8, r) * smoothstep(8.5, 4.2, r);
-
-          // Relativistic Doppler Beaming: forward moving side (left) is brighter and bluer
-          float doppler = 1.0 + 0.65 * sin(angle);
-
-          // Thermal spectrum palette: deep red -> orange -> gold -> hot blue-white
-          vec3 coldCol = vec3(0.9, 0.28, 0.08);
-          vec3 midCol  = vec3(1.0, 0.72, 0.25);
-          vec3 hotCol  = vec3(0.85, 0.92, 1.0);
-
-          vec3 baseColor = mix(coldCol, midCol, smoothstep(8.0, 4.5, r));
-          baseColor = mix(baseColor, hotCol, smoothstep(4.5, 2.9, r) * doppler);
-
-          float alpha = radialFade * (0.6 + 0.4 * n) * doppler * uOpacity;
-          gl_FragColor = vec4(baseColor * (1.2 + n * 0.8), clamp(alpha, 0.0, 1.0));
-        }
-      `,
     });
 
-    const disk = new THREE.Mesh(diskGeo, this.diskMaterial);
-    disk.rotation.x = Math.PI / 2.3;
-    this.group.add(disk);
+    this.quad = new THREE.Mesh(geo, this.material);
+    this.quad.frustumCulled = false;
+    this.group.add(this.quad);
 
-    // 4. Infalling Incretion Particle Dust
-    const pGeo = new THREE.BufferGeometry();
-    this.particlePositions = new Float32Array(this.particleCount * 3);
-    this.particleRadii = new Float32Array(this.particleCount);
-    this.particleAngles = new Float32Array(this.particleCount);
-    this.particleSpeeds = new Float32Array(this.particleCount);
-
-    for (let i = 0; i < this.particleCount; i++) {
-      const radius = 3.0 + Math.random() * 8.0;
-      const angle = Math.random() * Math.PI * 2;
-      const height = (Math.random() - 0.5) * 0.4 * (radius / 5.0);
-
-      this.particleRadii[i] = radius;
-      this.particleAngles[i] = angle;
-      this.particleSpeeds[i] = (1.5 / Math.sqrt(radius)) * 0.8;
-
-      this.particlePositions[i * 3 + 0] = Math.cos(angle) * radius;
-      this.particlePositions[i * 3 + 1] = height;
-      this.particlePositions[i * 3 + 2] = Math.sin(angle) * radius;
+    if (typeof window !== "undefined") {
+      this.res.set(window.innerWidth, window.innerHeight);
+      window.addEventListener("pointermove", this.onPointerMove);
     }
-
-    pGeo.setAttribute("position", new THREE.BufferAttribute(this.particlePositions, 3));
-    const pMat = new THREE.PointsMaterial({
-      color: 0xffd28a,
-      size: 0.055,
-      transparent: true,
-      opacity: 0.75,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-
-    this.particleSystem = new THREE.Points(pGeo, pMat);
-    this.particleSystem.rotation.x = Math.PI / 2.3;
-    this.group.add(this.particleSystem);
   }
 
-  public update(time: number, delta: number, visibility: number) {
-    this.group.visible = visibility > 0.01;
-    if (!this.group.visible) return;
+  private onPointerMove = (e: MouseEvent) => {
+    if (typeof window === "undefined") return;
+    const nx = (e.clientX / window.innerWidth) * 2 - 1;
+    const ny = -(e.clientY / window.innerHeight) * 2 + 1;
+    this.pointer.set(nx, ny);
+  };
 
-    // Subtle drift & wobble
-    this.group.rotation.y = time * 0.08;
-    this.group.rotation.z = Math.sin(time * 0.15) * 0.05;
+  public update(time: number, delta: number, visibility: number, anchor?: { cx: number; cy: number; w: number; h: number } | null) {
+    if (typeof window === "undefined") return;
 
-    // Uniforms
-    this.diskMaterial.uniforms.uTime.value = time;
-    this.diskMaterial.uniforms.uOpacity.value = visibility;
-    (this.photonRing.material as THREE.ShaderMaterial).uniforms.uTime.value = time;
-    (this.photonRing.material as THREE.ShaderMaterial).uniforms.uOpacity.value = visibility;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    this.res.set(vw, vh);
 
-    // Particle infalling orbital simulation
-    const pos = this.particlePositions;
-    for (let i = 0; i < this.particleCount; i++) {
-      this.particleAngles[i] += this.particleSpeeds[i] * delta * 1.5;
-      this.particleRadii[i] -= delta * 0.25;
+    const u = this.material.uniforms;
+    u.uTime.value = time;
+    u.uRes.value.copy(this.res);
+    u.uOpacity.value = visibility;
 
-      if (this.particleRadii[i] < 2.5) {
-        this.particleRadii[i] = 10.5 + Math.random() * 1.5;
-        this.particleAngles[i] = Math.random() * Math.PI * 2;
-      }
+    // Smooth pointer
+    u.uPointer.value.lerp(this.pointer, 0.06);
 
-      const r = this.particleRadii[i];
-      const a = this.particleAngles[i];
-      pos[i * 3 + 0] = Math.cos(a) * r;
-      pos[i * 3 + 2] = Math.sin(a) * r;
+    // Compute dynamic center and size based on DOM anchor or center of viewport
+    if (anchor && anchor.w > 0) {
+      const cx = anchor.cx + 12 * u.uPointer.value.x;
+      const cy = anchor.cy - 8 * u.uPointer.value.y;
+      this.center.set(cx, vh - cy);
+      u.uCenter.value.copy(this.center);
+      u.uSize.value = Math.max(anchor.w * 0.35, Math.min(vw, vh) * 0.38);
+    } else {
+      const cx = vw / 2 + 12 * u.uPointer.value.x;
+      const cy = vh / 2 - 8 * u.uPointer.value.y;
+      this.center.set(cx, vh - cy);
+      u.uCenter.value.copy(this.center);
+      u.uSize.value = Math.min(vw, vh) * 0.42;
     }
-    this.particleSystem.geometry.attributes.position.needsUpdate = true;
-    (this.particleSystem.material as THREE.PointsMaterial).opacity = visibility * 0.8;
+
+    // Dynamic tilt & inclination from pointer
+    u.uTilt.value = -0.06 + 0.03 * u.uPointer.value.x;
+    u.uIncl.value = 0.075 + 0.015 * u.uPointer.value.y;
+
+    // Visibility toggle
+    this.group.visible = visibility > 0.001;
+  }
+
+  public dispose() {
+    if (typeof window !== "undefined") {
+      window.removeEventListener("pointermove", this.onPointerMove);
+    }
+    this.quad.geometry.dispose();
+    this.material.dispose();
   }
 }

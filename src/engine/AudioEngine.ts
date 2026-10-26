@@ -178,7 +178,7 @@ export class AudioEngine {
   private muffle: BiquadFilterNode | null = null;
   private analyser: AnalyserNode | null = null;
 
-  public on = false;
+  public on = true;
   private failed = false;
   private offTimer = 0;
   private world: string | null = null;

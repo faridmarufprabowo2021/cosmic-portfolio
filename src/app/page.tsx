@@ -82,7 +82,7 @@ export default function Home() {
 
   // Update world audio when active section changes
   useEffect(() => {
-    if (audioRef.current && audioRef.current.isEnabled) {
+    if (audioRef.current && audioRef.current.on) {
       audioRef.current.setWorld(activeSection);
     }
   }, [activeSection]);

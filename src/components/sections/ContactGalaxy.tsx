@@ -1,140 +1,160 @@
 "use client";
 
 import { PersonalProfile } from "@/types/portfolio";
-import { SplitText } from "@/components/ui/SplitText";
-import { ArrowUpRight, ArrowUp, Sparkles, Mail, Github, Linkedin, MapPin } from "lucide-react";
 
 interface ContactGalaxyProps {
   personal: PersonalProfile;
-  onReturnToOrigin: () => void;
+  onReturnToOrigin?: () => void;
 }
 
 export function ContactGalaxy({ personal, onReturnToOrigin }: ContactGalaxyProps) {
+  const handleScrollTop = () => {
+    if (onReturnToOrigin) {
+      onReturnToOrigin();
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
-    <section id="contact" data-world="galaxy" className="relative min-h-[100svh] py-32 px-6 sm:px-12 md:px-20 max-w-7xl mx-auto flex flex-col justify-between">
-      <div>
-        {/* Header */}
-        <p className="eyebrow mb-6">
+    <section
+      id="contact"
+      data-world="galaxy"
+      className="section relative flex min-h-[100svh] flex-col pb-[var(--gy)]"
+    >
+      <div className="relative">
+        <p className="eyebrow" data-reveal="true">
           <span className="eyebrow-idx">05</span>
           <span className="eyebrow-rule" />
           <span>Contact</span>
         </p>
 
-        <h2 className="text-4xl sm:text-6xl md:text-8xl font-black uppercase text-white tracking-tight mb-8">
-          <span className="block text-[var(--ink-2)]">
-            <SplitText text="LET'S" variant="warp" stagger={0.035} />
+        <h2 className="display contact-title mt-8" aria-label="Let's connect">
+          <span className="split split--warp block" style={{ "--st": "0.035s" } as React.CSSProperties}>
+            <span className="split-word" aria-hidden="true">
+              {"LET'S".split("").map((ch, idx) => (
+                <span key={idx} className="split-ch" style={{ "--i": idx } as React.CSSProperties}>
+                  {ch}
+                </span>
+              ))}
+            </span>
           </span>
-          <span className="block text-white">
-            <SplitText text="CONNECT" variant="warp" stagger={0.035} />
+          <span className="split split--warp block display-strong" style={{ "--st": "0.035s" } as React.CSSProperties}>
+            <span className="split-word" aria-hidden="true">
+              {"CONNECT".split("").map((ch, idx) => (
+                <span key={idx} className="split-ch" style={{ "--i": idx } as React.CSSProperties}>
+                  {ch}
+                </span>
+              ))}
+            </span>
           </span>
         </h2>
 
-        <p className="text-base sm:text-lg text-[var(--ink-2)] max-w-2xl leading-relaxed mb-16 font-light">
-          I'm always interested in discussing new opportunities, innovative projects,
-          or just having a conversation about technology, AI & Web3.
+        <p className="body-muted lede mt-8 max-w-[44ch]" data-reveal="true">
+          I&apos;m always interested in discussing new opportunities, innovative projects, or just having a conversation about technology, backend engineering &amp; AI.
         </p>
+      </div>
 
-        {/* Hyperdrive Warp Jump Portal Button */}
-        <div className="mb-20">
-          <button
-            type="button"
-            onClick={onReturnToOrigin}
-            data-cursor="Warp"
-            className="group relative inline-flex items-center gap-4 px-8 py-5 rounded-2xl glass-panel border border-[var(--accent)]/50 hover:border-[var(--accent)] hover:shadow-2xl hover:shadow-[rgba(120,166,255,0.25)] transition-all duration-500 overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[rgba(120,166,255,0.15)] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-            
-            <div className="w-10 h-10 rounded-full bg-[rgba(120,166,255,0.2)] border border-[var(--accent)] flex items-center justify-center text-[var(--accent)] group-hover:scale-110 transition-transform">
-              <Sparkles size={18} />
-            </div>
-
-            <div className="text-left font-mono">
-              <span className="block text-xs text-[var(--accent)] uppercase tracking-wider">
-                PORTAL INTERACTIVE
-              </span>
-              <span className="block text-base sm:text-lg font-bold text-white group-hover:text-[var(--accent)] transition-colors">
-                Return to origin through the galaxy →
-              </span>
-            </div>
-          </button>
-        </div>
-
-        {/* Contact Links Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
+      {/* Galaxy Portal anchor & Return to origin */}
+      <div className="pointer-events-none relative mt-8 h-28 md:contents">
+        <div
+          data-anchor="galaxy"
+          className="pointer-events-none absolute z-20 left-1/2 top-1/2 aspect-square w-[150vw] -translate-x-1/2 -translate-y-1/2 md:left-[70%] md:top-[42%] md:w-[min(82vw,1200px)]"
+        >
           <a
-            href={`mailto:${personal.email}`}
-            className="flex items-center justify-between p-5 rounded-xl glass-panel border border-[var(--line)] hover:border-[var(--line-bright)] text-sm font-mono text-[var(--ink)] hover:text-white transition-colors group"
+            href="#top"
+            onClick={(e) => {
+              e.preventDefault();
+              handleScrollTop();
+            }}
+            className="galaxy-portal pointer-events-auto"
+            aria-label="Return to origin through the galaxy"
           >
-            <div className="flex items-center gap-3">
-              <Mail size={16} className="text-[var(--accent)]" />
-              <span className="text-[var(--ink-3)]">Email</span>
-              <span className="text-white">{personal.email}</span>
-            </div>
-            <ArrowUpRight size={16} className="text-[var(--ink-3)] group-hover:text-white transition-colors" />
+            <span className="portal-label" aria-hidden="true">
+              Return to origin
+            </span>
           </a>
-
-          <a
-            href={personal.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between p-5 rounded-xl glass-panel border border-[var(--line)] hover:border-[var(--line-bright)] text-sm font-mono text-[var(--ink)] hover:text-white transition-colors group"
-          >
-            <div className="flex items-center gap-3">
-              <Github size={16} className="text-[var(--accent)]" />
-              <span className="text-[var(--ink-3)]">GitHub</span>
-              <span className="text-white">{personal.githubHandle}</span>
-            </div>
-            <ArrowUpRight size={16} className="text-[var(--ink-3)] group-hover:text-white transition-colors" />
-          </a>
-
-          <a
-            href={personal.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between p-5 rounded-xl glass-panel border border-[var(--line)] hover:border-[var(--line-bright)] text-sm font-mono text-[var(--ink)] hover:text-white transition-colors group"
-          >
-            <div className="flex items-center gap-3">
-              <Linkedin size={16} className="text-[var(--accent)]" />
-              <span className="text-[var(--ink-3)]">LinkedIn</span>
-              <span className="text-white">{personal.name}</span>
-            </div>
-            <ArrowUpRight size={16} className="text-[var(--ink-3)] group-hover:text-white transition-colors" />
-          </a>
-
-          <div className="flex items-center justify-between p-5 rounded-xl glass-panel border border-[var(--line)] text-sm font-mono text-[var(--ink)]">
-            <div className="flex items-center gap-3">
-              <MapPin size={16} className="text-[var(--accent)]" />
-              <span className="text-[var(--ink-3)]">Based in</span>
-              <span className="text-white">{personal.location}</span>
-            </div>
-          </div>
         </div>
       </div>
 
-      {/* Footer & Epilogue Credits */}
-      <footer className="mt-32 pt-12 border-t border-[var(--line)] font-mono text-[11px] text-[var(--ink-3)] space-y-4">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <p>© 2026 {personal.name}. Built with Next.js 15, Three.js & Tailwind CSS.</p>
+      {/* Contact Link Cards */}
+      <ul className="contact-list relative z-30 mt-16 md:mt-24 md:max-w-[920px]">
+        <li data-reveal="true" style={{ "--d": "0s" } as React.CSSProperties}>
+          <a href={`mailto:${personal.email}`} className="contact-row group">
+            <span className="contact-key">Email</span>
+            <span className="contact-value">{personal.email}</span>
+            <span className="contact-go" aria-hidden="true">
+              <svg viewBox="0 0 16 16" focusable="false">
+                <path d="M5 11 11 5M6 5h5v5" />
+              </svg>
+            </span>
+          </a>
+        </li>
 
-          <button
-            type="button"
-            onClick={onReturnToOrigin}
-            className="flex items-center gap-1.5 text-[var(--accent)] hover:text-white transition-colors"
-          >
-            <span>Back to top</span>
-            <ArrowUp size={14} />
-          </button>
-        </div>
+        <li data-reveal="true" style={{ "--d": "0.08s" } as React.CSSProperties}>
+          <a href={personal.github} target="_blank" rel="noopener noreferrer" className="contact-row group">
+            <span className="contact-key">GitHub</span>
+            <span className="contact-value">{personal.githubHandle}</span>
+            <span className="contact-go" aria-hidden="true">
+              <svg viewBox="0 0 16 16" focusable="false">
+                <path d="M5 11 11 5M6 5h5v5" />
+              </svg>
+            </span>
+          </a>
+        </li>
 
-        <p className="leading-relaxed font-light text-[10px]">
-          Astrophysical telemetry: Voyager 1 distance ephemeris formulated from NASA JPL Horizons.
-          Solar system textures adapted from Solar System Scope / NASA, CC BY 4.0. Space audio synthesis based on Chandra X-ray sonifications and Voyager plasma wave frequencies.
+        <li data-reveal="true" style={{ "--d": "0.16s" } as React.CSSProperties}>
+          <a href={personal.linkedin} target="_blank" rel="noopener noreferrer" className="contact-row group">
+            <span className="contact-key">LinkedIn</span>
+            <span className="contact-value">{personal.name}</span>
+            <span className="contact-go" aria-hidden="true">
+              <svg viewBox="0 0 16 16" focusable="false">
+                <path d="M5 11 11 5M6 5h5v5" />
+              </svg>
+            </span>
+          </a>
+        </li>
+
+        <li className="contact-row contact-row--static" data-reveal="true" style={{ "--d": "0.24s" } as React.CSSProperties}>
+          <span className="contact-key">Based in</span>
+          <span className="contact-value text-[var(--ink-2)]">{personal.location}</span>
+        </li>
+      </ul>
+
+      {/* Site Footer */}
+      <footer className="site-foot relative mt-auto pt-24">
+        <p>
+          © 2026 {personal.name}. Built with Next.js &amp; Three.js.
+          <br />
+          Earth maps adapted from{" "}
+          <a className="link-line" href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noreferrer">
+            Solar System Scope / INOVE
+          </a>
+          , <a className="link-line" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a>. Resized.
+          <br />
+          Voyager 1 model by{" "}
+          <a className="link-line" href="https://science.nasa.gov/resource/voyager-3d-model/" target="_blank" rel="noreferrer">
+            NASA
+          </a>
+          , compressed; its distance from{" "}
+          <a className="link-line" href="https://ssd.jpl.nasa.gov/horizons/" target="_blank" rel="noreferrer">
+            JPL Horizons
+          </a>
+          .
+          <br />
+          Sound edited from NASA recordings (Artemis II launch, Van Allen Probes, Cassini, Stardust), Chandra sonifications (NASA/CXC/SAO/K. Arcand, SYSTEM Sounds) and Kenney foley, CC0.
         </p>
-
-        <p className="text-[10px] text-[var(--accent)]/60 pt-2">
-          Afterglow of the Big Bang · Light from 13.8 billion years ago
-        </p>
+        <button type="button" onClick={handleScrollTop} className="link-line site-foot-top">
+          Back to top ↑
+        </button>
       </footer>
+
+      {/* Cosmic Microwave Background Caption & Wall */}
+      <p className="cmb-caption">
+        <span>Afterglow of the Big Bang</span> <span className="cmb-caption-dot">·</span>{" "}
+        <span className="cmb-caption-age">Light from 13.8 billion years ago</span>
+      </p>
+      <div data-anchor="cmb" className="cmb-wall" aria-hidden="true" />
     </section>
   );
 }

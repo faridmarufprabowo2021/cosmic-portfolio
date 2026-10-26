@@ -2,9 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ArticleTransmission } from "@/types/portfolio";
-import { SplitText } from "@/components/ui/SplitText";
 import { calculateVoyagerEphemeris, EphemerisData } from "@/engine/Ephemeris";
-import { Radio, ArrowUpRight } from "lucide-react";
 
 interface WritingVoyagerProps {
   transmissions: ArticleTransmission[];
@@ -21,94 +19,104 @@ export function WritingVoyager({ transmissions }: WritingVoyagerProps) {
   }, []);
 
   return (
-    <section id="writing" data-world="voyager" className="relative py-32 px-6 sm:px-12 md:px-20 max-w-7xl mx-auto">
-      {/* Header */}
-      <header className="mb-20">
-        <p className="eyebrow mb-6">
-          <span className="eyebrow-idx">04</span>
-          <span className="eyebrow-rule" />
-          <span>Writing</span>
-        </p>
-
-        <h2 className="text-4xl sm:text-6xl md:text-8xl font-black uppercase text-white tracking-tight mb-8">
-          <SplitText text="TRANSMISSIONS" variant="rise" stagger={0.035} />
-        </h2>
-
-        <p className="text-base sm:text-lg text-[var(--ink-2)] max-w-2xl leading-relaxed mb-10 font-light">
-          Notes from the work, sent outward the way Voyager carries its record: for people I have not met yet.
-        </p>
-
-        {/* Live NASA JPL Horizons Ephemeris Telemetry */}
-        <div className="p-6 sm:p-8 rounded-2xl glass-panel border border-[rgba(120,166,255,0.25)] max-w-2xl bg-[rgba(14,20,34,0.55)]">
-          <div className="flex items-center gap-2 mb-6">
-            <Radio size={16} className="text-[var(--accent)] animate-pulse" />
-            <span className="font-mono text-xs uppercase tracking-wider text-[var(--accent)] font-semibold">
-              VOYAGER 1 REAL-TIME TELEMETRY
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 font-mono">
-            <div>
-              <span className="text-xs text-[var(--ink-3)] block mb-1">VOYAGER 1 FROM EARTH</span>
-              <span className="text-xl sm:text-2xl font-bold text-white tabular-nums tracking-wide">
-                {ephemeris.formattedKm}{" "}
-                <span className="text-xs font-normal text-[var(--ink-2)]">km</span>
-              </span>
-            </div>
-
-            <div>
-              <span className="text-xs text-[var(--ink-3)] block mb-1">LIGHT TIME, ONE WAY</span>
-              <span className="text-xl sm:text-2xl font-bold text-white tabular-nums tracking-wide">
-                {ephemeris.formattedLightTime}
-              </span>
-            </div>
-          </div>
-
-          <p className="font-mono text-[11px] text-[var(--ink-3)] mt-6 pt-4 border-t border-[var(--line)]">
-            Live, mathematically synchronized with NASA JPL Horizons ephemeris model.
+    <section id="writing" data-world="voyager" className="tx-sec" aria-labelledby="tx-title">
+      <div className="tx-stage">
+        <div className="tx-copy">
+          <p className="eyebrow" data-reveal="true">
+            <span className="eyebrow-idx">04</span>
+            <span className="eyebrow-rule" />
+            <span>Writing</span>
           </p>
-        </div>
-      </header>
 
-      {/* Transmissions List */}
-      <div className="space-y-6 max-w-3xl">
-        <h4 className="font-mono text-xs uppercase text-[var(--ink-3)] tracking-wider mb-4">
-          LATEST TRANSMISSIONS
-        </h4>
+          <h2 id="tx-title" className="title tx-title" aria-label="Transmissions">
+            <span className="split split--rise block" style={{ "--st": "0.035s" } as React.CSSProperties}>
+              <span className="split-word" aria-hidden="true">
+                {"TRANSMISSIONS".split("").map((ch, idx) => (
+                  <span key={idx} className="split-ch" style={{ "--i": idx } as React.CSSProperties}>
+                    {ch}
+                  </span>
+                ))}
+              </span>
+            </span>
+          </h2>
 
-        {transmissions.map((post) => (
-          <a
-            key={post.slug}
-            href={post.link}
-            className="group block p-6 sm:p-8 rounded-xl glass-panel border border-[var(--line)] hover:border-[var(--accent)] transition-all duration-300"
-          >
-            <div className="flex items-center justify-between text-xs font-mono text-[var(--ink-3)] mb-3">
-              <span>
-                {new Date(post.date).toLocaleDateString("en-GB", {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                })}{" "}
-                · {post.readingMinutes} min read
-              </span>
-              <span className="uppercase px-2 py-0.5 rounded bg-[rgba(255,255,255,0.05)] text-[10px]">
-                {post.lang}
-              </span>
+          <p className="lede tx-lede" data-reveal="true">
+            Notes from the work, sent outward the way Voyager carries its record: for people I have not met yet.
+          </p>
+
+          <dl className="tx-read" data-reveal="true" style={{ "--d": "0.08s" } as React.CSSProperties}>
+            <div>
+              <dt>Voyager 1 from Earth</dt>
+              <dd>
+                <span className="tx-num">{ephemeris.formattedKm}</span> km
+              </dd>
             </div>
+            <div>
+              <dt>Light time, one way</dt>
+              <dd>
+                <span className="tx-num">{ephemeris.formattedLightTime}</span>
+              </dd>
+            </div>
+          </dl>
 
-            <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-[var(--accent)] transition-colors mb-2 flex items-center justify-between">
-              <span>{post.title}</span>
-              <ArrowUpRight
-                size={18}
-                className="opacity-0 group-hover:opacity-100 transition-opacity text-[var(--accent)]"
-              />
-            </h3>
+          <p className="tx-src" data-reveal="true" style={{ "--d": "0.12s" } as React.CSSProperties}>
+            Live, from NASA JPL&apos;s Horizons ephemeris.
+          </p>
 
-            <p className="text-sm text-[var(--ink-2)] leading-relaxed font-light">
-              {post.excerpt}
-            </p>
-          </a>
-        ))}
+          <ol className="tx-list" aria-label="Latest writing">
+            {transmissions.map((t, idx) => (
+              <li
+                key={t.slug}
+                data-reveal="true"
+                style={{ "--d": `${0.16 + idx * 0.07}s` } as React.CSSProperties}
+              >
+                <a href={t.link || `/blog/${t.slug}/`} className="tx-row" lang={t.lang}>
+                  <span className="tx-meta">
+                    <time dateTime={t.date}>
+                      {new Date(t.date).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </time>
+                    <span aria-hidden="true"> · </span>
+                    {t.readingMinutes} min
+                  </span>
+                  <span className="tx-name">{t.title}</span>
+                  <span className="tx-excerpt">{t.excerpt}</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+
+          <div className="tx-more" data-reveal="true" style={{ "--d": "0.36s" } as React.CSSProperties}>
+            <a href="/blog/" className="act act--solid">
+              <span className="act-label">
+                <span className="act-roll">
+                  <span>All writing</span>
+                  <span aria-hidden="true">All writing</span>
+                </span>
+              </span>
+              <span className="act-port" data-icon="right" aria-hidden="true">
+                <span className="act-glyph">
+                  <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <path d="M3 8h10M9 4l4 4-4 4" />
+                  </svg>
+                </span>
+                <span className="act-glyph act-glyph--next">
+                  <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <path d="M3 8h10M9 4l4 4-4 4" />
+                  </svg>
+                </span>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        {/* 3D Voyager & Saturn Anchor */}
+        <div data-anchor="voyager" aria-hidden="true" className="voyager-box" data-pinned="true">
+          <div data-anchor="saturn" className="saturn-anchor" />
+        </div>
       </div>
     </section>
   );

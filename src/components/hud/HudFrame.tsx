@@ -19,7 +19,7 @@ export function HudFrame({
   activeSection,
   onNavigate,
   audioEngine,
-  city = "West Java",
+  city = "Surakarta",
 }: HudFrameProps) {
   const showScrollCue = progress < 0.08;
 
