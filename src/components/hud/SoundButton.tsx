@@ -8,8 +8,27 @@ interface SoundButtonProps {
 }
 
 export function SoundButton({ audioEngine }: SoundButtonProps) {
-  const [isOn, setIsOn] = useState(false);
+  const [isOn, setIsOn] = useState(true);
   const barsRef = useRef<(HTMLElement | null)[]>([]);
+
+  // Auto-enable audio on first user interaction or mount
+  useEffect(() => {
+    if (!audioEngine) return;
+    const unlockAudio = () => {
+      if (isOn && !audioEngine.on) {
+        audioEngine.enable();
+      }
+    };
+    unlockAudio();
+    window.addEventListener("pointerdown", unlockAudio, { once: true, passive: true });
+    window.addEventListener("scroll", unlockAudio, { once: true, passive: true });
+    window.addEventListener("keydown", unlockAudio, { once: true, passive: true });
+    return () => {
+      window.removeEventListener("pointerdown", unlockAudio);
+      window.removeEventListener("scroll", unlockAudio);
+      window.removeEventListener("keydown", unlockAudio);
+    };
+  }, [audioEngine, isOn]);
 
   useEffect(() => {
     let animId: number;
@@ -17,17 +36,21 @@ export function SoundButton({ audioEngine }: SoundButtonProps) {
 
     const updateBars = () => {
       if (isOn && audioEngine) {
-        audioEngine.getLevels(levels);
-        barsRef.current.forEach((bar, i) => {
+        const liveLevels = audioEngine.getLevels();
+        for (let i = 0; i < 4; i++) {
+          levels[i] += (liveLevels[i] - levels[i]) * 0.2;
+          const bar = barsRef.current[i];
           if (bar) {
-            const h = 3 + levels[i] * 9;
-            bar.style.height = `${h.toFixed(1)}px`;
+            bar.style.height = `${Math.max(15, Math.min(100, levels[i] * 100))}%`;
           }
-        });
+        }
       } else {
-        barsRef.current.forEach((bar) => {
-          if (bar) bar.style.height = "3px";
-        });
+        for (let i = 0; i < 4; i++) {
+          const bar = barsRef.current[i];
+          if (bar) {
+            bar.style.height = "15%";
+          }
+        }
       }
       animId = requestAnimationFrame(updateBars);
     };
@@ -36,27 +59,40 @@ export function SoundButton({ audioEngine }: SoundButtonProps) {
     return () => cancelAnimationFrame(animId);
   }, [isOn, audioEngine]);
 
-  const handleToggle = () => {
+  const toggleSound = () => {
     if (!audioEngine) return;
-    const newState = audioEngine.toggle();
-    setIsOn(newState);
+    if (isOn) {
+      audioEngine.disable();
+      setIsOn(false);
+    } else {
+      audioEngine.enable();
+      setIsOn(true);
+    }
   };
 
   return (
     <button
       type="button"
-      onClick={handleToggle}
-      className="sound-btn flex items-center px-3.5 py-1.5 rounded-full border border-[var(--line)] bg-[rgba(14,20,34,0.65)] backdrop-blur-md text-xs font-mono transition-colors hover:border-[var(--line-bright)] hover:text-white"
+      onClick={toggleSound}
+      className="sound-btn flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--line)] bg-[rgba(3,4,9,0.6)] backdrop-blur hover:border-[var(--line-bright)] transition-colors"
       aria-label={isOn ? "Sound on" : "Sound off"}
       aria-pressed={isOn}
     >
-      <span className="eq" aria-hidden="true">
-        <i ref={(el) => { barsRef.current[0] = el; }} />
-        <i ref={(el) => { barsRef.current[1] = el; }} />
-        <i ref={(el) => { barsRef.current[2] = el; }} />
-        <i ref={(el) => { barsRef.current[3] = el; }} />
+      <span className="eq flex items-end gap-[3px] h-3 w-3" aria-hidden="true" data-on={isOn ? "" : undefined}>
+        {[0, 1, 2, 3].map((i) => (
+          <i
+            key={i}
+            ref={(el) => {
+              barsRef.current[i] = el;
+            }}
+            className="w-[2px] bg-[var(--ink)] rounded-full transition-all duration-75"
+            style={{ height: isOn ? "40%" : "15%" }}
+          />
+        ))}
       </span>
-      <span className="text-[11px] text-[var(--ink-2)]">{isOn ? "Sound ON" : "Sound"}</span>
+      <span className="sound-txt text-xs font-mono tracking-wider uppercase text-[var(--ink-muted)] hidden md:inline">
+        Sound
+      </span>
     </button>
   );
 }
